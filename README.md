@@ -1,5 +1,6 @@
 # Information
-Project Repo for 2025 Spring INTRO ENGINEERING DESIGN-PILOT - ENGR 2050 - 10, supervised by Professor Lander and Professor Vener.
+Project Repository for 2025 Spring INTRO ENGINEERING DESIGN-PILOT - ENGR 2050 - 10, supervised by Professor Lander and Professor Vener.
+Team 4, Bloom Blockers.
 
 # 📌 Project Overview
 Bloom Blockers is a low-cost, automated water quality monitoring solution aimed at addressing nutrient pollution caused by fertilizer runoff. Excessive nitrate and phosphate levels in water bodies lead to harmful algal blooms, which negatively impact ecosystems, water quality, and agriculture. Current monitoring solutions are expensive, labor-intensive, and inaccessible to everyday users.
