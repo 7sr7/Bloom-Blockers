@@ -1,5 +1,5 @@
 """
-for testing how to send data from python to azure iot....
+for testing how to write data from python to azure iot....
 """
 
 from azure.iot.device import IoTHubDeviceClient, Message # pip install azure-iot-device
@@ -63,29 +63,37 @@ def send_data(client):
         time.sleep(5)  
 
 
-    # simulated data for right now...
-    measuredPhosphateLevel = random.uniform(0, 10)
-
-
-    # creating message in desired format...
-    allData = {
-        "phosphateData": measuredPhosphateLevel,
-        "timestamp": getCurrentTime()
-    }
-
-    message = Message(json.dumps(allData))
-    print("Sending message:", message)
-
-
-    # pushing this message to Azure IoT...
     if True:
-        try:
+        for i in range(5):
+            message = Message(i)
             client.send_message(message)
-            print("Message sent successfully...")
-        except Exception as e:
-            print("ERROR:", e)
-            client.shutdown()
-            exit(1)
+
+    else:
+        # simulated data for right now...
+        measuredPhosphateLevel = random.uniform(0, 10)
+
+
+        # creating message in desired format...
+        allData = {
+            "phosphateData": measuredPhosphateLevel,
+            "timestamp": getCurrentTime()
+        }
+
+        message = Message(json.dumps(allData))
+        print("Sending message:", message)
+
+
+        # pushing this message to Azure IoT...
+        if True:
+            try:
+                client.send_message(message)
+                print("Message sent successfully...")
+            except Exception as e:
+                print("ERROR:", e)
+                client.shutdown()
+                exit(1)
+
+
 
 
 def main():
