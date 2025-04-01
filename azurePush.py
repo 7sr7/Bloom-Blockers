@@ -43,6 +43,8 @@ def getCurrentTime():
     if False:    
         print(f'Current date is: {currYr.rjust(2,"0")}/{currMon.rjust(2,"0")}/{currDay.rjust(2,"0")} @ {currHr.rjust(2, "0")}:{currMin.rjust(2, "0")}:{currSec.rjust(2, "0")}')
 
+
+
     return dateArr
 
 
@@ -63,35 +65,36 @@ def send_data(client):
         time.sleep(5)  
 
 
-    if True:
+    if False:
         for i in range(5):
             message = Message(i)
             client.send_message(message)
 
     else:
-        # simulated data for right now...
-        measuredPhosphateLevel = random.uniform(0, 10)
+        for i in range(5):
+            # simulated data for right now...
+            measuredPhosphateLevel = random.uniform(0, 10)
 
 
-        # creating message in desired format...
-        allData = {
-            "phosphateData": measuredPhosphateLevel,
-            "timestamp": getCurrentTime()
-        }
+            # creating message in desired format...
+            allData = {
+                "phosphateData": measuredPhosphateLevel,
+                "timestamp": getCurrentTime()
+            }
 
-        message = Message(json.dumps(allData))
-        print("Sending message:", message)
+            message = Message(json.dumps(allData))
+            print("Sending message:", message)
 
 
-        # pushing this message to Azure IoT...
-        if True:
-            try:
-                client.send_message(message)
-                print("Message sent successfully...")
-            except Exception as e:
-                print("ERROR:", e)
-                client.shutdown()
-                exit(1)
+            # pushing this message to Azure IoT...
+            if True:
+                try:
+                    client.send_message(message)
+                    print("Message sent successfully...")
+                except Exception as e:
+                    print("ERROR:", e)
+                    client.shutdown()
+                    exit(1)
 
 
 

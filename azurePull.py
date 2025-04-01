@@ -6,8 +6,12 @@ from azure.iot.device import IoTHubDeviceClient, Message # pip install azure-iot
 import random
 import time
 import json
+import math
+
 from datetime import datetime
 from azure.eventhub import EventHubConsumerClient # pip install azure.eventhub
+from azurePush import getCurrentTime
+
 
 # taken from 「組み込みのエンドポイント」 --> 「イベントハブ互換エンドポイント」
 CONNECTION_STR = "Endpoint=sb://iothub-ns-bloomblock-64710761-f3cd7291df.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=ybZ2iX4zPlE2pjtXKReWlLV4fycc/L+CWAIoTLXWQzg=;EntityPath=bloomblockershub"
@@ -19,6 +23,39 @@ EVENTHUB_NAME = "bloomblockershub"
 global messageReceived
 messageReceived = False
 
+
+global file 
+
+# clear the file...
+file = open("azureData.txt","w")
+file.write("")
+
+if True:
+    file.write("Phosphate       |                Time\n")
+    file.write("Measurements    |               Taken\n")
+    file.write("----------------|--------------------\n")
+
+else:
+    file.write("Phosphate Measurements |             Time Taken\n")
+    file.write("-----------------------------------------------\n")
+
+file.close()
+
+if False:
+    exit(1)
+
+year, month, day, hr, min, sec = getCurrentTime()
+
+if False:
+    file.write(f'The following is all the unread Azure IoT cloud data as of {str(year).rjust(2,"0")}/{str(month).rjust(2,"0")}/{str(day).rjust(2,"0")} @ {str(hr).rjust(2, "0")}:{str(min).rjust(2, "0")}:{str(sec).rjust(2, "0")}...\n')
+
+
+if False:
+    file.write("assasdfasd\n")
+    exit(1)
+
+
+
 def on_event(partition_context, event):
 
     if False:
@@ -27,10 +64,47 @@ def on_event(partition_context, event):
 
     else:
         if event and event.body:
-            print("Message received from Azure IoT Hub...")
+
+            if True:
+                print("Message received from Azure IoT Hub...")
 
             # Print raw message as string
-            print("Message body:", event.body_as_str())
+            if True:
+                print("Message body:", event.body_as_str())
+
+            msgBody = event.body_as_str()    
+
+            try: 
+                print("here")
+                msgBody = json.loads(msgBody)
+                phosphateData = msgBody.get("phosphateData")
+                timestamp = msgBody.get("timestamp")
+
+
+                phosphateData = float(phosphateData)
+
+                phosphateData = math.ceil(phosphateData * 1000) / 1000
+
+                file = open("azureData.txt","a")
+
+                year, month, day, hr, min, sec = timestamp
+            
+                file.write(f'     {phosphateData:.3f}      | ')
+                file.write(f'{str(year).rjust(2,"0")}/{str(month).rjust(2,"0")}/{str(day).rjust(2,"0")} {str(hr).rjust(2, "0")}:{str(min).rjust(2, "0")}:{str(sec).rjust(2, "0")}\n')
+
+                file.close()
+
+            except Exception as e:
+                pass
+
+
+            
+            
+            
+            
+            # file.write()
+
+            # file.write("\n\n")
 
             messageReceived = True
 
@@ -58,6 +132,10 @@ client = EventHubConsumerClient.from_connection_string(
 )
 
 
+
+
+
+
 def timeout_receive():
 
     iniTime = time.time()
@@ -66,7 +144,10 @@ def timeout_receive():
         client.receive(
             on_event=on_event,
             starting_position="-1", # read from beginning
+
+            # starting_position="@latest", 
             max_wait_time=3  # Wait up to 10 seconds for a message
+
         )
 
     elapsedTime = time.time() - iniTime
