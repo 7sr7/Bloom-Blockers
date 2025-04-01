@@ -59,7 +59,7 @@ def initializeClient():
 
 
 # sending data to Azure IoT...
-def send_data(client):
+def send_data(client, userData, demo = False):
     # time stall... (maybe if i have multiple messages to send)
     if False:
         time.sleep(5)  
@@ -69,6 +69,27 @@ def send_data(client):
         for i in range(5):
             message = Message(i)
             client.send_message(message)
+
+    elif demo:
+        # creating message in desired format...
+        allData = {
+            "phosphateData": userData,
+            "timestamp": getCurrentTime()
+        }
+
+        message = Message(json.dumps(allData))
+        print("Sending message:", message)
+
+
+        # pushing this message to Azure IoT...
+        if True:
+            try:
+                client.send_message(message)
+                print("Message sent successfully...")
+            except Exception as e:
+                print("ERROR:", e)
+                client.shutdown()
+                exit(1)
 
     else:
         for i in range(5):
@@ -100,14 +121,43 @@ def send_data(client):
 
 
 def main():
-    if True:
-        # sending data...
-        print("Sending data to Azure IoT Hub...")
-        client = initializeClient()
-        
+    print("Sending data to Azure IoT Hub...")
+    client = initializeClient()
+
+    if False:
         send_data(client)
-        print("Sent data to Azure IoT Hub successfully...")
-        client.shutdown()
+
+        try:
+            send_data(client)
+        except:
+            print("Error...\n")
+            client.shutdown()
+            exit(1)
+
+
+    else:
+        for i in range(5):
+            while(1):
+                try:
+                    userInput = float(input("Please enter a valid number...\n"))
+                    break
+
+                except:
+                    print("Invalid number...\n")
+            
+            try:
+                send_data(client, userInput, True)
+            except:
+                print("Error...\n")
+                client.shutdown()
+                exit(1)
+
+    print("Sent data to Azure IoT Hub successfully...\n")
+
+    client.shutdown()
+
+        
+                
 
     if False:
         print(time.time())
