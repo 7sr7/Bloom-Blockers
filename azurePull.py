@@ -33,7 +33,7 @@ file.write("")
 if True:
     file.write("Phosphate       |                Time\n")
     file.write("Measurements    |               Taken\n")
-    file.write("----------------|--------------------\n")
+    file.write('-' * 16 + '|' + '-' * 20 + "\n")
 
 else:
     file.write("Phosphate Measurements |             Time Taken\n")
@@ -55,6 +55,13 @@ if False:
     exit(1)
 
 
+def getNumDigits(targetNum):
+    ret = 0
+    while (int(targetNum) > 0):
+        ret += 1
+        targetNum //= 10
+
+    return ret
 
 def on_event(partition_context, event):
 
@@ -75,11 +82,9 @@ def on_event(partition_context, event):
             msgBody = event.body_as_str()    
 
             try: 
-                print("here")
                 msgBody = json.loads(msgBody)
                 phosphateData = msgBody.get("phosphateData")
                 timestamp = msgBody.get("timestamp")
-
 
                 phosphateData = float(phosphateData)
 
@@ -88,8 +93,22 @@ def on_event(partition_context, event):
                 file = open("azureData.txt","a")
 
                 year, month, day, hr, min, sec = timestamp
-            
-                file.write(f'     {phosphateData:.3f}      | ')
+
+
+                if (float(phosphateData) <= 0 or float(phosphateData) >= 1000000000):
+                    phosphateString = ' ' * 6
+                    phosphateString += "NaN"
+                    phosphateString += ' ' * 7
+                    phosphateString += '| '
+
+                else:
+                    numDigits = getNumDigits(float(phosphateData))
+                    phosphateString = ' ' * (6 - numDigits // 2)
+                    phosphateString += f'{phosphateData:.3f}'
+                    phosphateString += ' ' * (6 - numDigits // 2 - numDigits % 2 - (numDigits == 0))
+                    phosphateString += '| '
+
+                file.write(phosphateString)
                 file.write(f'{str(year).rjust(2,"0")}/{str(month).rjust(2,"0")}/{str(day).rjust(2,"0")} {str(hr).rjust(2, "0")}:{str(min).rjust(2, "0")}:{str(sec).rjust(2, "0")}\n')
 
                 file.close()

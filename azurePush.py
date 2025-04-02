@@ -138,8 +138,16 @@ def main():
     else:
         for i in range(5):
             while(1):
+                userInput = input("Please enter a valid number (or 'q' to quit)...\n")
+
+                if (userInput == 'q'):
+                    client.shutdown()
+
+                    print("Exiting program...")
+                    return 1
+                
                 try:
-                    userInput = float(input("Please enter a valid number...\n"))
+                    float(userInput)
                     break
 
                 except:
@@ -156,6 +164,7 @@ def main():
 
     client.shutdown()
 
+    print("Exiting program...")
         
                 
 
