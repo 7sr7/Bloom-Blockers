@@ -136,29 +136,28 @@ def main():
 
 
     else:
-        for i in range(5):
-            while(1):
-                userInput = input("Please enter a valid number (or 'q' to quit)...\n")
+        while(1):
+            userInput = input("Please enter a valid number (or 'q' to quit)...\n")
 
-                if (userInput == 'q'):
-                    client.shutdown()
+            if (userInput == 'q'):
+                client.shutdown()
 
-                    print("Exiting program...")
-                    return 1
-                
-                try:
-                    float(userInput)
-                    break
-
-                except:
-                    print("Invalid number...\n")
+                print("Exiting program...")
+                return 1
             
             try:
-                send_data(client, userInput, True)
+                float(userInput)
+                break
+
             except:
-                print("Error...\n")
-                client.shutdown()
-                exit(1)
+                print("Invalid number...\n")
+        
+        try:
+            send_data(client, userInput, True)
+        except:
+            print("Error...\n")
+            client.shutdown()
+            exit(1)
 
     print("Sent data to Azure IoT Hub successfully...\n")
 

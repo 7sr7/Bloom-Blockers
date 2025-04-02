@@ -162,7 +162,7 @@ def timeout_receive():
     with client:
         client.receive(
             on_event=on_event,
-            starting_position="-1", # read from beginning
+            starting_position="@latest", # read from beginning
 
             # starting_position="@latest", 
             max_wait_time=3  # Wait up to 10 seconds for a message
