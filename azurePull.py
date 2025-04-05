@@ -13,7 +13,7 @@ from azure.eventhub import EventHubConsumerClient # pip install azure.eventhub
 from azurePush import getCurrentTime
 
 # from "Insertion endpoint" --> "Event Hub interchangeable endpoint" 
-    # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in eng...)
+    # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in en...)
 
 #「組み込みのエンドポイント」から --> 「イベントハブ互換エンドポイント」
 CONNECTION_STR = "Endpoint=sb://iothub-ns-bloomblock-64710761-f3cd7291df.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=ybZ2iX4zPlE2pjtXKReWlLV4fycc/L+CWAIoTLXWQzg=;EntityPath=bloomblockershub"
@@ -21,10 +21,10 @@ CONNECTION_STR = "Endpoint=sb://iothub-ns-bloomblock-64710761-f3cd7291df.service
 
 
 
-# from "Shared acess policy" --> "iothubowner" --> "Primary Connection Character String"
-    # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in eng...)
+# from "Shared access policy" --> "Consumer group"
+    # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in en...)
 
-#「共有アクセスポリシー」から 「iothubowner」 --> 「プライマリ接続文字列」
+#「共有アクセスポリシー」から 「コンシューマー グループ」 
 EVENTHUB_NAME = "bloomblockershub"
 
 

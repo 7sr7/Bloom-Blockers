@@ -51,7 +51,7 @@ def getCurrentTime():
 # creating Azure IoT client...
 def initializeClient():
     # from "Devices" --> "DeviceID" --> "Primary Connection Character String" 
-        # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in eng...)
+        # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in en...)
     
     # 「デバイス」から --> 「デバイスID」-->「プライマリ接続文字列」 
     CONNECTION_STRING = "HostName=BloomBlockersHub.azure-devices.net;DeviceId=RaspberryPiPython;SharedAccessKey=fNZ1n6dxy+B46X1UqHNkKSxvjBM8w1Ct06YXgo6yusk="
