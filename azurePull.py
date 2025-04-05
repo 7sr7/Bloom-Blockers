@@ -24,7 +24,7 @@ CONNECTION_STR = "Endpoint=sb://iothub-ns-bloomblock-64710761-f3cd7291df.service
 # from "Shared access policy" --> "Consumer group"
     # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in en...)
 
-#「共有アクセスポリシー」から 「コンシューマー グループ」 
+#「共有アクセスポリシー」から -->「コンシューマー グループ」 
 EVENTHUB_NAME = "bloomblockershub"
 
 
