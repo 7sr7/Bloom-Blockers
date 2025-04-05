@@ -50,8 +50,13 @@ def getCurrentTime():
 
 # creating Azure IoT client...
 def initializeClient():
-    # my connection string (primary key of registered device on Azure IoT)
+    # from "Devices" --> "DeviceID" --> "Primary Connection Character String" 
+        # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in eng...)
+    
+    # 「デバイス」から --> 「デバイスID」-->「プライマリ接続文字列」 
     CONNECTION_STRING = "HostName=BloomBlockersHub.azure-devices.net;DeviceId=RaspberryPiPython;SharedAccessKey=fNZ1n6dxy+B46X1UqHNkKSxvjBM8w1Ct06YXgo6yusk="
+
+
 
     client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
 
@@ -65,6 +70,7 @@ def send_data(client, userData, demo = False):
         time.sleep(5)  
 
 
+    # demo mode shit for ms4...
     if False:
         for i in range(5):
             message = Message(i)

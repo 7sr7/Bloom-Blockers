@@ -12,11 +12,19 @@ from datetime import datetime
 from azure.eventhub import EventHubConsumerClient # pip install azure.eventhub
 from azurePush import getCurrentTime
 
+# from "Insertion endpoint" --> "Event Hub interchangeable endpoint" 
+    # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in eng...)
 
-# taken from 「組み込みのエンドポイント」 --> 「イベントハブ互換エンドポイント」
+#「組み込みのエンドポイント」から --> 「イベントハブ互換エンドポイント」
 CONNECTION_STR = "Endpoint=sb://iothub-ns-bloomblock-64710761-f3cd7291df.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=ybZ2iX4zPlE2pjtXKReWlLV4fycc/L+CWAIoTLXWQzg=;EntityPath=bloomblockershub"
 
-# taken from 「共有アクセスポリシー」 --> 「iothubowner」 --> 「プライマリ接続文字列」
+
+
+
+# from "Shared acess policy" --> "iothubowner" --> "Primary Connection Character String"
+    # (or should be a tab that translates roughly to this... my azure hub is in jp so im doing my best to translate to what i think it would be in eng...)
+
+#「共有アクセスポリシー」から 「iothubowner」 --> 「プライマリ接続文字列」
 EVENTHUB_NAME = "bloomblockershub"
 
 
@@ -31,8 +39,8 @@ file = open("azureData.txt","w")
 file.write("")
 
 if True:
-    file.write("Phosphate       |                Time\n")
-    file.write("Measurements    |               Taken\n")
+    file.write("Phosphate" + ' ' * 7 + '|' + ' ' * 16 + "Time\n")
+    file.write("Measurements" + ' ' * 4 + '|' + ' ' * 15 + "Taken\n") 
     file.write('-' * 16 + '|' + '-' * 20 + "\n")
 
 else:
@@ -162,9 +170,9 @@ def timeout_receive():
     with client:
         client.receive(
             on_event=on_event,
-            starting_position="@latest", # read from beginning
+            starting_position="@latest", 
 
-            # starting_position="@latest", 
+            # starting_position="-1", // this means that you read from the beginning of the cloud storage (anything from last 7 days i think) 
             max_wait_time=3  # Wait up to 10 seconds for a message
 
         )
@@ -183,14 +191,14 @@ timeout_receive()
 
 if False:
     # Start receiving
-    print("📡 Listening for incoming messages from Azure IoT Hub...")
+    print("Listening for incoming messages from Azure IoT Hub...")
     with client:
         client.receive(
             on_event=on_event,
             starting_position="-1",  # "-1" = read from beginning
         )
 if False:
-    print("📡 Reading all messages from today...")
+    print("Reading all messages from today...")
     with client:
         client.receive(
             on_event=on_event,
