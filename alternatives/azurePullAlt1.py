@@ -25,9 +25,6 @@ messageReceived = False
 
 
 global file 
-global isPhosphate
-
-isPhosphate = True
 
 # clear the file...
 file = open("azureData.txt","w")
@@ -86,15 +83,16 @@ def on_event(partition_context, event):
 
 
             try: 
-                data = msgBody.split(":")[1]
+                phosphateData = msgBody[19:24]
+                date = msgBody[43:53]
+                time = msgBody[56:64]
 
-                if (isPhosphate):
-                    print(f"Phosphate level is{data}")
 
-                else:
-                    print(f"Date is{date}")
+                print(f'Received Phosphate Level {phosphateData}\n')
+                print(f'Received Date {date}\n')
+                print(f'Received Time {time}\n')
 
-                isPhosphate = not isPhosphate                
+                
 
             except Exception as e:
                 pass

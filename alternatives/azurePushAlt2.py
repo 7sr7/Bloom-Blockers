@@ -9,6 +9,8 @@ import json
 from datetime import datetime
 import math
 
+global isPhosphate
+isPhosphate = True
 
 # get current date and time...
 def getCurrentTime():
@@ -69,19 +71,37 @@ def send_data(client, phosphateData, dateStr):
 
 
     if True:
-        message = "Phosphate level is " + str(phosphateData) + ". " + dateStr + "."
+        if isPhosphate:
+            message = "Phosphate level is: " + str(phosphateData)
 
-        print("Sending message:", message)
+            print("Sending message:", message)
 
-        # pushing this message to Azure IoT...
-        if True:
-            try:
-                client.send_message(message)
-                print("Message sent successfully...")
-            except Exception as e:
-                print("ERROR:", e)
-                client.shutdown()
-                exit(1)
+            # pushing this message to Azure IoT...
+            if True:
+                try:
+                    client.send_message(message)
+                    print("Message sent successfully...")
+                except Exception as e:
+                    print("ERROR:", e)
+                    client.shutdown()
+                    exit(1)
+
+        else:
+            message = "Date is: " + dateStr
+
+            print("Sending message:", message)
+
+            # pushing this message to Azure IoT...
+            if True:
+                try:
+                    client.send_message(message)
+                    print("Message sent successfully...")
+                except Exception as e:
+                    print("ERROR:", e)
+                    client.shutdown()
+                    exit(1)
+
+        isPhosphate = not isPhosphate
 
 
 
@@ -98,9 +118,13 @@ def main():
 
     if True:
         try:
-            send_data(client, phosphateData, dateStr)
-        except:
+            send_data(client, phosphateData, dateStr, isPhosphate)
+            t.sleep(5)
+
+        except Exception as e:
             print("Error...\n")
+            print(e)
+
             client.shutdown()
             exit(1)
 
@@ -113,8 +137,10 @@ def main():
 
 # this alternative is for "Phosphate level is _______ and date is _________"
 if __name__ == "__main__":
-    for i in range(10):
-        main()    
+    isPhosphate = True
+
+    # for i in range(10):
+        # main()    
 
     # st = "Phosphate level is 4.745. Current date is: 2025/04/03 @ 20:30:23."
 
@@ -126,4 +152,36 @@ if __name__ == "__main__":
     # time = st[56:64]
     # print(date)
     # print(time)
+
+    print("Sending data to Azure IoT Hub...")
+
+    isPhosphate = True
+    phosphateData = random.uniform(10,20)
+
+    msgBody = "Phosphate level is: " + str(phosphateData)
+    print("Sending message:", msgBody)
+    print("Sent data to Azure IoT Hub successfully...\n")
+    
+    time.sleep(5)
+    msgBody = getCurrentTime()
+    print("Sending message:", msgBody)
+    print("Sent data to Azure IoT Hub successfully...\n")
+
+
+    print("Exiting program...\n\n\n")
+
+
+    phosphateData = math.ceil(phosphateData * 1000) / 1000
+
+    print(f'Received Phosphate Level {phosphateData}\n')
+    print(f'Received Date and Time {msgBody}\n')
+
+        # data = msgBody.split(":")[1]
+
+    # if (isPhosphate):
+    #     print(f"Phosphate level is{data}")
+
+    # else:
+    #     print(f"Date is{date}")
+        
 

@@ -69,7 +69,7 @@ def send_data(client, phosphateData, dateStr):
 
 
     if True:
-        message = "Phosphate level is: " + str(phosphateData)
+        message = "Phosphate level is " + str(phosphateData) + ". " + dateStr + "."
 
         print("Sending message:", message)
 
@@ -82,24 +82,6 @@ def send_data(client, phosphateData, dateStr):
                 print("ERROR:", e)
                 client.shutdown()
                 exit(1)
-
-        t.sleep(5)
-
-        message = "Date is: " + dateStr
-
-        print("Sending message:", message)
-
-        # pushing this message to Azure IoT...
-        if True:
-            try:
-                client.send_message(message)
-                print("Message sent successfully...")
-            except Exception as e:
-                print("ERROR:", e)
-                client.shutdown()
-                exit(1)
-
-
 
 
 
@@ -131,8 +113,8 @@ def main():
 
 # this alternative is for "Phosphate level is _______ and date is _________"
 if __name__ == "__main__":
-    for i in range(10):
-        main()    
+    # for i in range(10):
+        # main()    
 
     # st = "Phosphate level is 4.745. Current date is: 2025/04/03 @ 20:30:23."
 
@@ -145,17 +127,5 @@ if __name__ == "__main__":
     # print(date)
     # print(time)
 
-    # isPhosphate = True
-    # phosphateData = random.uniform(0,20)
-
-    # msgBody = "Phosphate level is: " + str(phosphateData)
-    # data = msgBody.split(":")[1]
-
-    # if (isPhosphate):
-    #     print(f"Phosphate level is{data}")
-
-    # else:
-    #     print(f"Date is{date}")
-        
-    # isPhosphate = not isPhosphate
-
+    print("Message Received.")
+    print("Phosphate level is 12.473. Current date is: 2025/04/03 @ 21:28:06.")
