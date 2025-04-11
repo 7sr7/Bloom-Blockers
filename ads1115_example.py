@@ -20,7 +20,7 @@ print("{:>5}\t{:>5}".format("raw", "v"))
 
 try:
     while True:
-        print("cahn0: {:>5}\t{:>5.3f}".format(chan0.value, chan0.voltage))
+        print("chan0: {:>5}\t{:>5.3f}".format(chan0.value, chan0.voltage))
         print("cahn1: {:>5}\t{:>5.3f}".format(chan1.value, chan1.voltage))
         print("cahn2: {:>5}\t{:>5.3f}".format(chan2.value, chan2.voltage))
         print("cahn3: {:>5}\t{:>5.3f}".format(chan3.value, chan3.voltage))
