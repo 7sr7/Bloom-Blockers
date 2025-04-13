@@ -28,7 +28,7 @@ while True:
         pin.off()  # Set LOW
     else:
         pin.toggle()
-        sleep(2)
+        time.sleep(2)
 
 
 
