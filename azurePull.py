@@ -86,6 +86,7 @@ def on_event(partition_context, event):
             # Print raw message as string
             if True:
                 print("Message body:", event.body_as_str())
+                print("\n\n")
 
             msgBody = event.body_as_str()    
 

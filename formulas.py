@@ -23,8 +23,8 @@ def getPhosphateFromVoltage(inVoltage):
 
 def main():
     # phosphate conversion test...
-    if False:
-        testVals = [1.656, 1.646, 1.629, 1.61, 1.565]
+    if True:
+        testVals = [1.28, 1.656, 1.646, 1.629, 1.61, 1.565]
 
         i = 0
 
